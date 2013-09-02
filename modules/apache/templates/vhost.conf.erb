@@ -1,0 +1,18 @@
+#### ERB template for vhost configuration file
+
+NameVirtualHost *:<%= port %>
+
+<VirtualHost *:<%= port %>>
+ServerName <%= name %>
+DocumentRoot <%= docroot %>
+<%if serveraliases.is_a? Array -%>
+<% serveraliases.each do |name| -%><%= "  ServerAlias #{name}\n" %><% end -%>
+<% elseif serveraliases != '' -%>
+<%= "  ServerAlias #{serveraliases}" -%>
+<% end -%>
+
+ErrorLog /var/log/apache2/<%= name %>_error.log
+LogLevel warn
+CustomLog /var/log/apache2/<%= name %>_access.log combined
+ServerSignature On
+</VirtualHost>
