@@ -21,34 +21,34 @@ class mysql::install {
 }
 
 class mysql::config {
-   file {"/opt/mysql":
-      ensure  =>  "directory",
-      owner  =>  "mysql",
-      group  =>  "mysql",
-      mode  =>   "0777", 
-      }
+#   file {"/opt/mysql":
+#      ensure  =>  "directory",
+#      owner  =>  "mysql",
+#      group  =>  "mysql",
+#      mode  =>   "0777", 
+#      }
 
-   file {"/opt/mysql/my.cnf":
+   file {"/etc/my.cnf":
      ensure  =>  "present",
      source  =>  "puppet:///modules/mysql/etc/my.cnf",
      owner  =>  "mysql",
      group  =>  "mysql",
-     require  =>  [ Class["mysql::install"], File["/opt/mysql"] ], 
+     require  =>  Class["mysql::install"],#, File["/opt/mysql"] ], 
      notify  =>  Class["mysql::service"],
      }
 
-   file {"/opt/mysql/var":
-       ensure  =>  "directory",
-       group  =>  "mysql",
-       owner  =>  "mysql",
-       recurse  =>  "true",
-       require  => [ File["/opt/mysql/my.cnf"], File["/opt/mysql"] ],
-      }    
+#   file {"/opt/mysql/var":
+#       ensure  =>  "directory",
+#       group  =>  "mysql",
+#       owner  =>  "mysql",
+#       recurse  =>  "true",
+#       require  => [ File["/opt/mysql/my.cnf"], File["/opt/mysql"] ],
+#      }    
  
-   file {"/etc/my.cnf":
-       require  => File["/opt/mysql/my.cnf"],
-       ensure  =>  "/opt/mysql/my.cnf",
-         }
+#   file {"/etc/my.cnf":
+#       require  => File["/opt/mysql/my.cnf"],
+#       ensure  =>  "/opt/mysql/my.cnf",
+#         }
  } 
 
 
