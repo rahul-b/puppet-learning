@@ -16,6 +16,17 @@ include base
 
 node 'web.test.com' {
  include base
+ include apache
+
+#### defination 
+  apache::vhost { "web.test.com":
+  port  =>  80,
+  docroot  => "var/www/",
+  ssl  =>  "false",
+  priority  => 10,
+  serveraliases  =>  "home.test.com",
+  }
+
 }
 
 node 'db.test.com' {
